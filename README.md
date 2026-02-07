@@ -27,6 +27,7 @@ assignment4/
 │   └── database.js          # MongoDB connection
 ├── models/
 │   ├── User.js
+    ├── Cart.js
 |   |── Order.js       # User schema with auth methods
 │   ├── Product.js           # Product schema
 │   └── Review.js            # Review schema

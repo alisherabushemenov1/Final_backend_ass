@@ -26,15 +26,19 @@ assignment4/
 ├── config/
 │   └── database.js          # MongoDB connection
 ├── models/
-│   ├── User.js              # User schema with auth methods
+│   ├── User.js
+|   |── Order.js       # User schema with auth methods
 │   ├── Product.js           # Product schema
 │   └── Review.js            # Review schema
 ├── controllers/
 │   ├── authController.js    # Authentication logic
+|   ├── cartController.js    # Card Crud logic
 │   ├── productController.js # Product CRUD logic
 │   └── reviewController.js  # Review CRUD logic
 ├── routes/
 │   ├── auth.js              # Auth routes
+|   ├── orders.js            # Orders routes
+|   ├── cart.js              # Cart routes
 │   ├── products.js          # Product routes
 │   └── reviews.js           # Review routes
 ├── middleware/
@@ -42,6 +46,7 @@ assignment4/
 │   └── errorHandler.js      # Error handling
 ├── public/
 │   └── index.html           # Frontend with auth
+|   ├── app.js               # Functrionality
 ├── .env
 ├── package.json
 └── server.js                # App entry point

@@ -239,8 +239,6 @@ Authorization: Bearer <JWT_TOKEN>
 GET /api/orders
 Authorization: Bearer <ADMIN_JWT_TOKEN>
 
-DELETE /api/orders/6601order123
-Authorization: Bearer <ADMIN_JWT_TOKEN>
 
 ## Testing
 

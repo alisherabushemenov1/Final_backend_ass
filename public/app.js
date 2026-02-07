@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = '/api';
 let currentUser = null;
 let authToken = localStorage.getItem('token');
 let currentProductId = null;
@@ -812,3 +812,4 @@ function renderAdminOrders() {
     `;
   }).join('');
 }
+

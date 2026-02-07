@@ -1,210 +1,226 @@
-# 🛍️ Product Management System - Full Stack E-Commerce Application
+# Product Management System - Final
 
-**Complete E-Commerce Platform with JWT Authentication, RBAC, Shopping Cart, Orders & Reviews**
+Secure CRUD API with JWT Authentication and Role-Based Access Control (RBAC) using MVC architecture.
 
----
+## Features
 
-## 📋 Table of Contents
+- ✅ **MVC Architecture** - Organized code structure
+- ✅ **JWT Authentication** - Secure token-based auth
+- ✅ **RBAC** - Role-based access control (User/Admin)
+- ✅ **Password Hashing** - bcrypt encryption
+- ✅ **Multi-Object CRUD** - Products & Reviews
+- ✅ **Protected Routes** - Admin-only endpoints
 
-- Overview
-- Features
-- Technologies
-- Installation
-- Configuration
-- Project Structure
-- API Documentation
-- User Roles & Permissions
-- Database Schema
-- Testing
-- Deployment
+## Technologies
 
----
+- Node.js + Express.js
+- MongoDB + Mongoose
+- JWT (jsonwebtoken)
+- bcryptjs
+- express-validator
 
-## 🎯 Overview
+## Project Structure (MVC)
 
-Full-stack e-commerce application demonstrating modern web development practices with Node.js, Express, and MongoDB.  
-The project implements authentication, authorization, shopping cart, order management, and product reviews.
+```
+assignment4/
+├── config/
+│   └── database.js          # MongoDB connection
+├── models/
+│   ├── User.js              # User schema with auth methods
+│   ├── Product.js           # Product schema
+│   └── Review.js            # Review schema
+├── controllers/
+│   ├── authController.js    # Authentication logic
+│   ├── productController.js # Product CRUD logic
+│   └── reviewController.js  # Review CRUD logic
+├── routes/
+│   ├── auth.js              # Auth routes
+│   ├── products.js          # Product routes
+│   └── reviews.js           # Review routes
+├── middleware/
+│   ├── auth.js              # JWT verification & RBAC
+│   └── errorHandler.js      # Error handling
+├── public/
+│   └── index.html           # Frontend with auth
+├── .env
+├── package.json
+└── server.js                # App entry point
+```
 
----
-
-## ✨ Features
-
-### 🔐 Authentication & Security
-- JWT authentication with bcrypt password hashing
-- Role-Based Access Control (User / Admin)
-- Protected API routes
-
-### 📦 Product Management
-- Admin: create, update, delete products
-- Public: view all products with images
-- Stock quantity management
-
-### 🛒 Shopping Cart
-- Add/remove products
-- Update quantities
-- Persistent cart per user
-- Checkout creates an order
-
-### 📋 Order Management
-- Users can view their own orders
-- Admin can view and manage all orders
-- Order status management
-- Orders linked to users
-
-### ⭐ Reviews
-- 5-star rating system
-- Product comments
-- Admin moderation
-
----
-
-## 🛠️ Technologies
-
-**Backend**
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-- Bcrypt
-
-**Frontend**
-- HTML
-- CSS
-- Vanilla JavaScript (Fetch API)
-
----
-
-## 🚀 Installation
+## Installation
 
 ```bash
-npm install
-npm run dev
-```
+# Install dependencies
+npm install express mongoose cors dotenv bcryptjs jsonwebtoken express-validator
 
----
-
-## ⚙️ Configuration
-
-Create `.env` file:
-
-```env
+# Create .env file
 PORT=3000
-MONGODB_URI=mongodb://localhost:27017/assignment4_db
-JWT_SECRET=your_jwt_secret_key
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRE=7d
+BCRYPT_ROUNDS=10
 ```
 
----
+## Running
 
-## 📁 Project Structure
-
-```
-Final_back/
-├── config/
-├── controllers/
-├── middleware/
-├── models/
-├── routes/
-├── public/
-│   ├── index.html
-│   └── app.js
-├── server.js
-└── README.md
+```bash
+npm start
 ```
 
----
+Open http://localhost:3000
 
-## 📚 API Documentation
+## Authentication Flow
 
-### Base URL
-```
-/api
-```
-
-### Authentication Header
-```
-Authorization: Bearer <JWT_TOKEN>
-```
-
----
-
-## 🔐 Authentication Endpoints
-
-### Register
+### 1. Register User
 ```
 POST /api/auth/register
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "role": "user"  // or "admin"
+}
 ```
 
-### Login
+### 2. Login
 ```
 POST /api/auth/login
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+Response:
+{
+  "success": true,
+  "data": {
+    "user": {...},
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}
 ```
 
-### Get Profile
+### 3. Use Token
+Add to request headers:
 ```
-GET /api/auth/me
+Authorization: Bearer YOUR_JWT_TOKEN
 ```
 
----
+## API Endpoints
 
-## 📦 Product Endpoints
+### Auth Routes (Public)
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/me` - Get current user (Protected)
+- `PUT /api/auth/me` - Update profile (Protected)
 
-### Get All Products
-```
-GET /api/products
-```
+### Product Routes
+- `GET /api/products` - Get all products (Public)
+- `GET /api/products/:id` - Get single product (Public)
+- `POST /api/products` - Create product (Admin only)
+- `PUT /api/products/:id` - Update product (Admin only)
+- `DELETE /api/products/:id` - Delete product (Admin only)
+
+### Review Routes
+- `GET /api/products/:productId/reviews` - Get product reviews (Public)
+- `GET /api/reviews/:id` - Get single review (Public)
+- `POST /api/products/:productId/reviews` - Create review (Authenticated users)
+- `PUT /api/reviews/:id` - Update review (Admin only)
+- `DELETE /api/reviews/:id` - Delete review (Admin only)
+
+### Cart Routes
+- `GET /api/cart` – Get current user cart (Authenticated users)
+- `POST /api/cart/items` – Add product to cart (Authenticated users)
+- `PUT /api/cart/items/:productId` – Update cart item quantity (Authenticated users)
+- `DELETE /api/cart/items/:productId` – Remove product from cart (Authenticated users)
+- `POST /api/cart/checkout` – Checkout cart and create order (Authenticated users)
+
+### Order Routes
+- `POST /api/orders` – Create new order (Authenticated users)
+- `GET /api/orders/my` – Get current user orders (Authenticated users)
+- `GET /api/orders` – Get all orders (Admin only)
+- `PUT /api/orders/:id/status` – Update order status (Admin only)
+- `DELETE /api/orders/:id` – Delete order (Admin only)
+
+
+## Access Control (RBAC)
+
+### Public Access
+- GET requests (Read products and reviews)
+- Registration and login
+
+### Authenticated Users
+- Create reviews
+- View own profile
+
+### Admin Only
+- Create, Update, Delete products
+- Update, Delete reviews
+
+## Request Examples
 
 ### Create Product (Admin)
 ```
 POST /api/products
+Headers: 
+  Authorization: Bearer YOUR_ADMIN_TOKEN
+  Content-Type: application/json
+
+Body:
+{
+  "name": "iPhone 15 Pro",
+  "price": 999.99,
+  "description": "Latest Apple smartphone",
+  "category": "Electronics",
+  "quantity": 50
+}
 ```
 
-### Delete Product (Admin)
+### Create Review (Any authenticated user)
 ```
-DELETE /api/products/:id
+POST /api/products/:productId/reviews
+Headers: 
+  Authorization: Bearer YOUR_TOKEN
+  Content-Type: application/json
+
+Body:
+{
+  "author": "John Doe",
+  "rating": 5,
+  "comment": "Excellent product!"
+}
 ```
+## Cart & Orders
 
----
-
-## 🛒 Cart Endpoints
-
-### Get Cart
-```
+### Get User Cart
+```http
 GET /api/cart
-```
+Authorization: Bearer <JWT_TOKEN>
 
-### Add to Cart
-```
 POST /api/cart/items
-```
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
 
-### Checkout
-```
-POST /api/cart/checkout
-```
+{
+  "productId": "65f1abc123",
+  "quantity": 2
+}
 
----
+PUT /api/cart/items/65f1abc123
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
 
-## 📋 Orders API (Implemented)
+{
+  "quantity": 3
+}
 
-The Orders API provides full order lifecycle management with strict Role-Based Access Control.
+DELETE /api/cart/items/65f1abc123
+Authorization: Bearer <JWT_TOKEN>
 
-### Access Rules
-- **User**: create orders, view own orders
-- **Admin**: view all orders, update order status, delete orders
-
-All routes are protected using JWT authentication.
-
----
-
-### Create Order (User)
-
-```
 POST /api/orders
-Authorization: Bearer <token>
-```
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
 
-```json
 {
   "items": [
     {
@@ -216,123 +232,133 @@ Authorization: Bearer <token>
   "totalPrice": 50,
   "paymentMethod": "card"
 }
-```
 
----
-
-### Get My Orders (User)
-
-```
 GET /api/orders/my
-Authorization: Bearer <token>
-```
+Authorization: Bearer <JWT_TOKEN>
 
----
-
-### Get All Orders (Admin)
-
-```
 GET /api/orders
-Authorization: Bearer <admin_token>
+Authorization: Bearer <ADMIN_JWT_TOKEN>
+
+DELETE /api/orders/6601order123
+Authorization: Bearer <ADMIN_JWT_TOKEN>
+
+## Testing
+
+### Test Accounts
+
+**Admin Account:**
+```
+Email: admin@test.com
+Password: admin123
 ```
 
-Returns all orders with populated user data (name, email).  
-Used in the Admin Orders Panel on the frontend.
-
----
-
-### Update Order Status (Admin)
-
+**Regular User:**
 ```
-PUT /api/orders/:id/status
-Authorization: Bearer <admin_token>
+Email: user@test.com
+Password: user123
 ```
 
+### Using Postman
+
+1. Register/Login to get JWT token
+2. Copy the token
+3. Add to Authorization header: `Bearer YOUR_TOKEN`
+4. Test protected endpoints
+
+## Security Features
+
+### Password Security
+- Passwords hashed using bcrypt
+- Salt rounds: 10 (configurable)
+- Never stored in plain text
+- Passwords excluded from query results
+
+### JWT Security
+- Token expiration (7 days default)
+- Signed with secret key
+- Contains user ID, email, and role
+- Verified on protected routes
+
+### Role-Based Access
+- Middleware checks user role
+- Admin-only routes return 403 if unauthorized
+- User info attached to request object
+
+## Error Responses
+
+### 401 Unauthorized
 ```json
 {
-  "status": "processing"
+  "success": false,
+  "message": "Access denied. No token provided."
 }
 ```
 
-Allowed statuses:
-```
-created → processing → completed
-```
-
----
-
-### Delete Order (Admin)
-
-```
-DELETE /api/orders/:id
-Authorization: Bearer <admin_token>
-```
-
----
-
-## 👥 User Roles & Permissions
-
-| Action | User | Admin |
-|------|------|-------|
-| View products | ✅ | ✅ |
-| Create product | ❌ | ✅ |
-| Add to cart | ✅ | ✅ |
-| Checkout | ✅ | ✅ |
-| View own orders | ✅ | ✅ |
-| View all orders | ❌ | ✅ |
-| Update order status | ❌ | ✅ |
-| Delete order | ❌ | ✅ |
-
----
-
-## 🗄️ Database Schema (Order)
-
-```js
+### 403 Forbidden
+```json
 {
-  user: ObjectId,
-  items: [
-    {
-      product: ObjectId,
-      quantity: Number,
-      price: Number
-    }
-  ],
-  totalPrice: Number,
-  status: String,
-  createdAt: Date
+  "success": false,
+  "message": "Access denied. Required role: admin"
 }
 ```
 
----
+### 400 Bad Request
+```json
+{
+  "success": false,
+  "message": "Validation failed",
+  "errors": ["Field is required"]
+}
+```
 
-## 🧪 Testing
+## Assignment Requirements
 
-- Postman used for API testing
-- All protected routes tested with JWT
-- Admin permissions verified
+### ✅ MVC Architecture
+- [x] Separate models, controllers, routes
+- [x] Middleware folder
+- [x] Config folder
+- [x] Clean code organization
 
----
+### ✅ Multi-Object CRUD
+- [x] Primary: Product (full CRUD)
+- [x] Secondary: Review (full CRUD)
+- [x] Relationships between objects
 
-## 🚢 Deployment
+### ✅ Authentication
+- [x] User model with email/password/role
+- [x] Password hashing with bcrypt
+- [x] JWT token generation
+- [x] Login/Register endpoints
 
-- Backend deployed on Render
-- MongoDB Atlas used for production database
-- Environment variables configured on Render
+### ✅ RBAC
+- [x] Public: GET routes
+- [x] Authenticated: Create reviews
+- [x] Admin: POST/PUT/DELETE products
+- [x] Role verification middleware
 
----
+## Troubleshooting
 
-## 📄 License
+**"Invalid token"**
+- Check token format: `Bearer TOKEN`
+- Verify token hasn't expired
+- Ensure JWT_SECRET matches
 
-Educational project (Assignment 4)
+**"Access denied"**
+- Check user role (admin vs user)
+- Verify token is valid
+- Login again if token expired
 
----
+**"User already exists"**
+- Email must be unique
+- Try different email
 
-## 👨‍💻 Author
+## Environment Variables
 
-Your Name  
-Assignment 4 – Web Technologies  
-2024
-
----
-
-✅ Project Status: Complete
+```env
+PORT=3000
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/assignment4_db
+JWT_SECRET=your-secret-key-min-32-chars
+JWT_EXPIRE=7d
+BCRYPT_ROUNDS=10
+```

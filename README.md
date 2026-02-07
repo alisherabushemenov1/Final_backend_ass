@@ -198,7 +198,6 @@ Body:
 ```
 ## Cart & Orders
 
-### Get User Cart
 ```http
 GET /api/cart
 Authorization: Bearer <JWT_TOKEN>

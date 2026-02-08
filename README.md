@@ -149,8 +149,8 @@ MongoDB Compass       - Database GUI
 #### 1. Create Project Directory
 
 ```bash
-mkdir assignment4
-cd assignment4
+mkdir Final_back
+cd Final_back
 ```
 
 #### 2. Initialize npm

@@ -19,6 +19,83 @@ Secure CRUD API with JWT Authentication and Role-Based Access Control (RBAC) usi
 - bcryptjs
 - express-validator
 
+## ✨ Features
+
+### 🔐 Authentication & Security
+- User registration with email validation
+- Secure login using JWT tokens (7-day expiration)
+- Password hashing with bcrypt (10 salt rounds)
+- Role-Based Access Control (User / Admin)
+- Protected API routes with middleware
+
+---
+
+### 📦 Product Management
+
+**Admin Features:**
+- Create products with image support (URL)
+- Update product details
+- Delete products
+- Manage inventory (stock quantity)
+- Image preview before saving product
+
+**Public Features:**
+- Browse all products with images
+- View detailed product information
+- Filter products by category
+- Search products by name
+- Sort products by price, name, or creation date
+
+---
+
+### 🛒 Shopping Cart
+- Add products to cart with stock validation
+- Update item quantities (+ / −)
+- Remove items from cart
+- Real-time cart total price calculation
+- Cart badge showing total items count
+- Persistent cart per authenticated user
+- Checkout process creates an order
+
+---
+
+### 📋 Order Management
+
+**Admin Features:**
+- View all orders with customer details
+- Filter orders by status
+- Update order status  
+  (`Pending → Processing → Completed`)
+- Delete orders
+- Auto-generated order numbers  
+  (`ORD-YYYYMMDD-####`)
+
+**User Features:**
+- View personal order history
+- Receive order confirmation after checkout
+- Real-time stock updates after purchase
+
+---
+
+### ⭐ Reviews & Ratings
+- Write product reviews (authenticated users only)
+- 5-star rating system
+- “Recommended” checkbox for reviews
+- Display all reviews with timestamps
+- Admin moderation (update / delete reviews)
+
+---
+
+### 🎨 User Interface
+- Fully responsive design (mobile-friendly)
+- Modern UI with gradient styling
+- Modal windows for cart and reviews
+- Image placeholders for missing images
+- Client-side form validation
+- Success and error notifications
+- Loading states for better UX
+
+
 ## Project Structure (MVC)
 
 ```

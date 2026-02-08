@@ -149,27 +149,55 @@ assignment4/
 └── server.js                # App entry point
 ```
 
-## Installation
+## 🚀 Installation (Explanation)
 
-```bash
-# Install dependencies
-npm install express mongoose cors dotenv bcryptjs jsonwebtoken express-validator
+This section describes how to prepare the development environment and install all required tools and dependencies for running the project locally.
 
-# Create .env file
-PORT=3000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRE=7d
-BCRYPT_ROUNDS=10
-```
+### Prerequisites
 
-## Running
+Before starting the project, make sure the following software is installed on your computer:
 
-```bash
-npm start
-```
+- **Node.js (v14 or higher)** — required to run JavaScript code on the server side.  
+  Node.js also includes **npm**, which is used to manage project dependencies.
 
-Open http://localhost:3000
+- **npm (v6 or higher)** — Node Package Manager, used to install libraries such as Express, Mongoose, JWT, and others.
+
+- **MongoDB (v4.4 or higher)** — database used to store users, products, carts, orders, and reviews.  
+  MongoDB can be installed locally or replaced with **MongoDB Atlas**, a free cloud database service.
+
+---
+
+### Step-by-Step Setup
+
+1. **Create Project Directory**  
+   A new folder is created for the project. This directory will contain all backend and frontend files of the application.
+
+2. **Initialize npm**  
+   The `npm init -y` command creates a `package.json` file.  
+   This file stores information about the project and lists all dependencies required to run the application.
+
+3. **Install Dependencies**  
+   Production dependencies such as Express, Mongoose, JWT, bcrypt, and dotenv are installed.  
+   These libraries provide core functionality including:
+   - HTTP server handling
+   - Database connection
+   - Authentication and authorization
+   - Password hashing
+   - Environment variable management  
+
+   Development dependency **Nodemon** is also installed.  
+   Nodemon automatically restarts the server when code changes, which simplifies development.
+
+4. **Create Directory Structure**  
+   Project folders are created to follow the MVC (Model–View–Controller) architecture:
+   - `config` — database and configuration files
+   - `controllers` — business logic
+   - `middleware` — authentication, authorization, error handling
+   - `models` — MongoDB schemas
+   - `routes` — API endpoints
+   - `public` — frontend files (HTML, CSS, JavaScript)
+
+After completing these steps, the project is ready for environment configuration and server startup.
 
 ## Authentication Flow
 

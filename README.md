@@ -369,48 +369,14 @@ GET /api/orders
 Authorization: Bearer <ADMIN_JWT_TOKEN>
 ```
 
+## 🔒 Security Features ### 1. Password Security - **Bcrypt hashing** with 10 rounds of salting - Passwords never stored in plain text - One-way encryption (cannot be reversed) - Unique salt per password ### 2. JWT Authentication - Signed tokens with HS256 algorithm - 7-day expiration (configurable) - Stateless (no server-side sessions) - Contains user ID, email, and role - Cannot be forged without secret key ### 3. Input Validation - Mongoose schema validation - Required field checks - String length limits - Number range validation - Email format validation - Enum values for categories/roles ### 4. Authorization Middleware
+javascript
+// Authenticate - verify JWT
+authenticate(req, res, next)
 
-## Testing
-
-### Test Accounts
-
-**Admin Account:**
-```
-Email: admin@test.com
-Password: admin123
-```
-
-**Regular User:**
-```
-Email: user@test.com
-Password: user123
-```
-
-### Using Postman
-
-1. Register/Login to get JWT token
-2. Copy the token
-3. Add to Authorization header: `Bearer YOUR_TOKEN`
-4. Test protected endpoints
-
-## Security Features
-
-### Password Security
-- Passwords hashed using bcrypt
-- Salt rounds: 10 (configurable)
-- Never stored in plain text
-- Passwords excluded from query results
-
-### JWT Security
-- Token expiration (7 days default)
-- Signed with secret key
-- Contains user ID, email, and role
-- Verified on protected routes
-
-### Role-Based Access
-- Middleware checks user role
-- Admin-only routes return 403 if unauthorized
-- User info attached to request object
+// Authorize - check role
+authorize('admin')(req, res, next)
+### 5. Error Handling - Global error handler - Specific error types (Validation, Cast, Duplicate) - No sensitive data in errors - Development vs Production modes ### 6. CORS Configuration - Configured for cross-origin requests - Allowed methods and headers specified --- ## 🧪 Testing ### Test Checklist #### Authentication ✅ - [ ] Register new user - [ ] Register with duplicate email (should fail) - [ ] Login with correct credentials - [ ] Login with wrong password (should fail) - [ ] Access protected route without token (should fail) - [ ] Access admin route as user (should fail) #### Products ✅ - [ ] Get all products (public) - [ ] Create product as admin - [ ] Create product as user (should fail) - [ ] Update product as admin - [ ] Delete product as admin #### Cart ✅ - [ ] Add product to cart - [ ] Update quantity - [ ] Remove from cart - [ ] Checkout creates order #### Orders ✅ - [ ] View orders as admin - [ ] Filter orders by status - [ ] Update order status - [ ] View own orders as user #### Reviews ✅ - [ ] Create review as user - [ ] View all reviews (public) - [ ] Update review as admin - [ ] Delete review as admin
 
 ## Error Responses
 

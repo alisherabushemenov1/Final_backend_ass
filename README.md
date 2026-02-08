@@ -11,13 +11,32 @@ Secure CRUD API with JWT Authentication and Role-Based Access Control (RBAC) usi
 - ✅ **Multi-Object CRUD** - Products & Reviews
 - ✅ **Protected Routes** - Admin-only endpoints
 
-## Technologies
+## 🛠️ Technologies
 
-- Node.js + Express.js
-- MongoDB + Mongoose
-- JWT (jsonwebtoken)
-- bcryptjs
-- express-validator
+### Backend
+- **Node.js v14+** — JavaScript runtime
+- **Express.js v4.18.2** — Web framework
+- **MongoDB v4.4+** — NoSQL database
+- **Mongoose v8.0.0** — MongoDB ODM
+- **JWT v9.0.2** — Authentication tokens
+- **Bcrypt v2.4.3** — Password hashing
+- **CORS v2.8.5** — Cross-origin resource sharing
+- **Dotenv v16.3.1** — Environment variables management
+
+---
+
+### Frontend
+- **HTML5** — Application structure
+- **CSS3** — Styling (Gradients, Flexbox, Grid)
+- **Vanilla JavaScript** — Client-side logic
+- **Fetch API** — HTTP requests handling
+
+---
+
+### Development Tools
+- **Nodemon v3.0.1** — Auto-restart server during development
+- **Postman** — API testing and debugging
+- **MongoDB Compass** — MongoDB database GUI
 
 ## ✨ Features
 

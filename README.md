@@ -271,8 +271,7 @@ assignment4/
 │   ├── authController.js        # Authentication logic
 │   ├── productController.js     # Product CRUD logic
 │   ├── cartController.js        # Shopping cart logic
-│   ├── reviewController.js      # Review CRUD logic
-│   └── orderController.js       # Order management logic
+│   └── reviewController.js      # Review CRUD logic
 ├── middleware/
 │   ├── auth.js                  # JWT verification & RBAC
 │   └── errorHandler.js          # Global error handling

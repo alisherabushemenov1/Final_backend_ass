@@ -641,13 +641,13 @@ Authorization: Bearer <token>
 
 #### Get All Orders (Admin Only)
 ```http
-GET /api/orders?status=pending
+GET /api/orders
 Authorization: Bearer <admin_token>
 ```
 
 #### Get My Orders
 ```http
-GET /api/orders/my-orders
+GET /api/orders/my
 Authorization: Bearer <token>
 ```
 
